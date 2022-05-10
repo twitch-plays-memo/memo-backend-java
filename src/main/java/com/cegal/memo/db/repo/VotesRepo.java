@@ -20,7 +20,7 @@ public class VotesRepo {
             String sql = "SELECT * FROM [dbo].[VOTES]";
             ResultSet resultSet = statement.executeQuery(sql);
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 Votes votes = Votes.builder()
                     .id(resultSet.getString("id"))
                     .cardId(resultSet.getString("card_id"))
