@@ -1,6 +1,5 @@
 package com.cegal.memo.controller;
 
-import com.cegal.memo.db.repo.GameStatsRepo;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -15,15 +14,15 @@ import java.util.Optional;
 /**
  * Azure Functions with HTTP Trigger.
  */
-public class DataController {
+public class CardVotesGetController {
     /**
      * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
      * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
      */
-    private static GameStatsRepo repo = new GameStatsRepo();
-    @FunctionName("getMesseges")
-    public HttpResponseMessage getMesseges(
+    //private static TestRepo testRepo = new TestRepo();
+    @FunctionName("getCardVotes")
+    public HttpResponseMessage getVotes(
             @HttpTrigger(
                 name = "req",
                 methods = {HttpMethod.GET},
@@ -32,7 +31,8 @@ public class DataController {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
         
-        return request.createResponseBuilder(HttpStatus.OK).body("SOMETHING").build();
+        //Todo get from database
+        return request.createResponseBuilder(HttpStatus.OK).body("TODO").build();
 
     }
 }
