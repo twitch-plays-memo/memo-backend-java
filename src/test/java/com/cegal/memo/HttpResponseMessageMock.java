@@ -1,4 +1,4 @@
-package com.function;
+package com.cegal.memo;
 
 import com.microsoft.azure.functions.*;
 

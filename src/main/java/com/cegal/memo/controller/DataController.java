@@ -1,5 +1,6 @@
-package com.function;
+package com.cegal.memo.controller;
 
+import com.cegal.memo.db.repo.TestRepo;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -14,30 +15,24 @@ import java.util.Optional;
 /**
  * Azure Functions with HTTP Trigger.
  */
-public class Function {
+public class DataController {
     /**
      * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
      * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
      */
-    @FunctionName("HttpExample")
-    public HttpResponseMessage run(
+    private static TestRepo testRepo = new TestRepo();
+    @FunctionName("getMesseges")
+    public HttpResponseMessage getMesseges(
             @HttpTrigger(
                 name = "req",
-                methods = {HttpMethod.GET, HttpMethod.POST},
+                methods = {HttpMethod.GET},
                 authLevel = AuthorizationLevel.ANONYMOUS)
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
+        
+        return request.createResponseBuilder(HttpStatus.OK).body(new Response(testRepo.reader())).build();
 
-        // Parse query parameter
-        final String query = request.getQueryParameters().get("name");
-        final String name = request.getBody().orElse(query);
-
-        if (name == null) {
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a name on the query string or in the request body").build();
-        } else {
-            return request.createResponseBuilder(HttpStatus.OK).body("Hello, " + name).build();
-        }
     }
 }

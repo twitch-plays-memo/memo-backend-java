@@ -1,30 +1,21 @@
-package com.function;
+package com.cegal.memo.db.repo;
+
+import com.cegal.memo.db.client.DBClient;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class DBClient {
+public class TestRepo {
     
-    public static void main(String[] args) {
-        new DBClient().reader();
-    }
-
-
     public String reader() {
 
-        String ret = "default";
-
-        String connectionUrl = 
-        "jdbc:sqlserver://twitch-plays.database.windows.net:1433;database=memo;user=memo@twitch-plays;password=Plays_987123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-        
+        String ret = "default";       
         ResultSet resultSet = null;
 
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
+        try (Connection connection = DBClient.getConnection();
             Statement statement = connection.createStatement();) {
-
 
             // Create and execute a SELECT SQL statement.
             String selectSql = "SELECT * FROM [dbo].[test]";
@@ -44,6 +35,4 @@ public class DBClient {
 
         return ret;
     }        
-
-
 }

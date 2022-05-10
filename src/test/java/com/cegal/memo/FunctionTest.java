@@ -1,4 +1,4 @@
-package com.function;
+package com.cegal.memo;
 
 import com.microsoft.azure.functions.*;
 import org.mockito.invocation.InvocationOnMock;
@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+import com.cegal.memo.controller.*;
 
 /**
  * Unit test for Function class.
