@@ -19,14 +19,14 @@ import java.util.Optional;
 /**
  * Azure Functions with HTTP Trigger.
  */
-public class CardVotesGetController {
+public class CardVotesGetRawController {
     /**
      * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
      * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
      */
     private static VotesRepo repo = new VotesRepo();
-    @FunctionName("getCardVotes")
+    @FunctionName("getRawCardVotes")
     public HttpResponseMessage getVotes(
             @HttpTrigger(
                 name = "req",
@@ -35,24 +35,8 @@ public class CardVotesGetController {
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
-
-        List<Votes> votes = repo.read();
-        Map<String, VoteResponse> voteCount = new HashMap<>();
-        for (Votes v : votes) {
-            if (voteCount.containsKey(v.getCardId())) {
-                VoteResponse vote = voteCount.get(v.getCardId());
-                vote.setCount(vote.getCount()+1);
-                voteCount.put(v.getCardId(), vote);
-            } else {
-                voteCount.put(v.getCardId(), VoteResponse.builder()
-                .cardId(v.getCardId())
-                .count(1)
-                .build());
-            }
-        }
-        
-        //Todo get from database
-        return request.createResponseBuilder(HttpStatus.OK).body(voteCount.values()).build();
+                
+        return request.createResponseBuilder(HttpStatus.OK).body(repo.read()).build();
 
     }
 }
