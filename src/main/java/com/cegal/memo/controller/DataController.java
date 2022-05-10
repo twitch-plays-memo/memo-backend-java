@@ -1,6 +1,6 @@
 package com.cegal.memo.controller;
 
-import com.cegal.memo.db.repo.TestRepo;
+import com.cegal.memo.db.repo.GameStatsRepo;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -21,7 +21,7 @@ public class DataController {
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
      * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
      */
-    private static TestRepo testRepo = new TestRepo();
+    private static GameStatsRepo repo = new GameStatsRepo();
     @FunctionName("getMesseges")
     public HttpResponseMessage getMesseges(
             @HttpTrigger(
@@ -32,7 +32,7 @@ public class DataController {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
         
-        return request.createResponseBuilder(HttpStatus.OK).body(new Response(testRepo.reader())).build();
+        return request.createResponseBuilder(HttpStatus.OK).body("SOMETHING").build();
 
     }
 }
