@@ -1,6 +1,7 @@
 package com.cegal.memo;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 
@@ -9,11 +10,14 @@ import com.cegal.memo.db.entity.GameStats;
 
 
 public class GameStatsRepoTest {
+    @Disabled
     @Test
     public void testRead() throws Exception {
         GameStats stats = new GameStatsRepo().read();
         System.out.println("*** SCORE: " + stats.getScore());
     }
+
+    @Disabled
     @Test
     public void testWrite() throws Exception {
         GameStats stats = GameStats.builder()

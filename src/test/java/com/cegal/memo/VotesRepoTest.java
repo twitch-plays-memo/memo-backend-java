@@ -1,6 +1,7 @@
 package com.cegal.memo;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import com.cegal.memo.db.repo.*;
 import com.cegal.memo.db.entity.Votes;
 
 public class VotesRepoTest {
+    @Disabled
     @Test
     public void testRead() throws Exception {
         List<Votes> voteList = new VotesRepo().read();
