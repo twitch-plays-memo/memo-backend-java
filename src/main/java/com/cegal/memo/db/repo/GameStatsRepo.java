@@ -14,7 +14,7 @@ public class GameStatsRepo {
 
     private static final String GAME_ID = "the-game";
     
-    public GameStats read() {
+    public GameStats read() throws Exception{
         GameStats stats = null;       
         ResultSet resultSet = null;
 
@@ -38,6 +38,7 @@ public class GameStatsRepo {
         } catch (SQLException e) {
             System.out.println("*** Error in reading from GAME_STATS");
             e.printStackTrace();
+            throw e;
         }
 
         return stats;

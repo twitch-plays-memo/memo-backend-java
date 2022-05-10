@@ -17,11 +17,13 @@ import java.util.Optional;
  */
 public class GameStatsGetController {
     /**
-     * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
+     * This function listens at endpoint "/api/HttpExample". Two ways to invoke it
+     * using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
      * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
      */
     private static GameStatsRepo gameStatsRepo = new GameStatsRepo();
+
     @FunctionName("getGameStats")
     public HttpResponseMessage getStats(
             @HttpTrigger(
@@ -31,8 +33,11 @@ public class GameStatsGetController {
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
-        
-        return request.createResponseBuilder(HttpStatus.OK).body(gameStatsRepo.read()).build();
+        try {
+            return request.createResponseBuilder(HttpStatus.OK).body(gameStatsRepo.read()).build();
+        } catch (Exception e) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage()).build();
+        }
 
     }
 }

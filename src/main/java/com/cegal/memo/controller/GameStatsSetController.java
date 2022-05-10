@@ -1,6 +1,7 @@
 package com.cegal.memo.controller;
 
 import com.cegal.memo.db.entity.GameStats;
+import com.cegal.memo.db.repo.GameStatsRepo;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -23,6 +24,7 @@ public class GameStatsSetController {
      * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
      */
 
+    GameStatsRepo repo = new GameStatsRepo();
     @FunctionName("putGameStats")
     public HttpResponseMessage putStats(
             @HttpTrigger(name = "req", methods = {
@@ -35,7 +37,7 @@ public class GameStatsSetController {
         GameStats gameStats = request.getBody().get();
 
         try {
-            // Call to database
+            repo.write(gameStats);
             return request.createResponseBuilder(HttpStatus.OK).build();
         } catch (Exception e) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage()).build();
