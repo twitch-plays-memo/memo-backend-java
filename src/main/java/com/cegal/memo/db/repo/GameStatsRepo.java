@@ -23,7 +23,6 @@ public class GameStatsRepo {
             String sql = "SELECT * FROM [dbo].[GAME_STATS] where id='" + GAME_ID + "'";
             resultSet = statement.executeQuery(sql);
 
-            // Print results from select statement
             if (resultSet.next()) {
                 String indexesText = resultSet.getString("active_card_indexes");
                 List<String> indexes = Arrays.asList(indexesText.split("\\s*,\\s*"));
@@ -36,9 +35,7 @@ public class GameStatsRepo {
                     .activeCardIndexes(indexes)
                     .build();
             }
-        }
-        // Handle any errors that may have occurred.
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("*** Error in reading from GAME_STATS");
             e.printStackTrace();
         }
@@ -56,10 +53,8 @@ public class GameStatsRepo {
                 + "total_cards=" + stats.getTotalCards() + ","
                 + "active_card_indexes='" +  String.join(",", stats.getActiveCardIndexes()) + "'"
                 + "WHERE id='" + GAME_ID + "'";
-            ResultSet resultSet = statement.executeQuery(sql);
-        }
-        // Handle any errors that may have occurred.
-        catch (SQLException e) {
+            statement.executeQuery(sql);
+        } catch (SQLException e) {
             System.out.println("*** Error in writing into GAME_STATS");
             e.printStackTrace();
         }

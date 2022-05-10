@@ -8,7 +8,7 @@ import com.cegal.memo.db.repo.*;
 import com.cegal.memo.db.entity.GameStats;
 
 
-public class DBClientTest {
+public class GameStatsRepoTest {
     @Test
     public void testRead() throws Exception {
         GameStats stats = new GameStatsRepo().read();
